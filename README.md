@@ -43,3 +43,160 @@ A elaboração de componentes em javascript utiliza a sintaxe JSX similar ao HTM
 A interpretação é feita baseado nos componentes nativos de cada Sistema Operacional assim, simplificando o desenvolvimento dos aplicativos.
 
 ![modelo](assets/image-4.png)
+
+## Primeiro projeto
+
+```bash
+npx create-expo-app@latest projeto1-myskills -t
+cd projeto1-myskills
+npm run android
+```
+
+> [!IMPORTANT]
+> Utilizando o `npx`, o projeto já instala o projeto com a ultima versão da cli e ao sair update, o projeto receberá as atualizações.
+
+### Organização
+
+```js
+import React from "react"; // Permite utilizar a sintaxe JSX para desenvolver interface
+import { View, Text } from "react-native"; // Trazer de dentro do react do contexto mobile
+
+// View = div
+// Text = Texto na tela
+
+export default function App() {
+    return(
+        <View style={{ // Estilo inline
+            flex: 1, // Ocupa a tela toda
+            justifyContent: 'center', // Centraliza ao centro da tela na vertical
+            alignItems: 'center'  // Centraliza ao centro da tela na horizontal
+            }}>
+            <Text>React Native</Text>
+        </View>
+    )
+}
+```
+
+Não definir exportação default para o VSCode ter facilidade ao importar a página.
+
+```js
+// Home.js 
+export function Home() {
+    return (
+        <View>
+            <Text>Home</Text>
+        </View>
+    )
+}
+
+// App.js
+import React from 'react';
+import { Home } from './src/pages/Home';
+
+export default App() {
+    return (
+        <Home />
+    )
+}
+```
+
+### Refatorando o estilo
+
+```js
+// Home.js 
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native'; 
+
+export function Home() {
+    return (
+        <View style={styles.container}>
+            <Text>Home</Text>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, // Ocupa a tela toda
+        justifyContent: 'center', // Centraliza ao centro da tela na vertical
+        alignItems: 'center'  // Centraliza ao centro da tela na horizontal    
+    }  
+})
+```
+
+### Criando um input
+
+```js
+import React from 'react';
+import {StyleSheet, TextInput } from 'react-native';
+
+export function Home() {
+    return (
+        <>
+            <TextInput
+                style={styles.input}
+                placeholder="New skill"
+                placeholderTextColor="#555"
+            />
+        </>
+    )
+} 
+const styles = StyleSheet.create({
+    input: {
+        backgroundColor: '#1F1E25',
+        color: '#FFF',
+        height: 40,
+        marginTop: 20,
+        padding: Platform.OS === 'ios' ? 15 : 10,
+        borderRadius: 7
+    },
+})
+```
+### Criando um button
+
+```js
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+
+export function Home() {
+    return (
+        <TouchableOpacity 
+            style={styles.button}
+            activeOpacity={0.7}>
+                <Text style={styles.buttonText}>Add</Text>
+        </TouchableOpacity>
+    )
+
+}
+
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: '#A370F7',
+        padding: 15,
+        borderRadius: 7,
+        alignItems: 'center',
+        marginTop: 20
+    }
+})
+```
+
+### Vetor de estilos
+
+```js
+
+export function Home() {
+    return (
+        <View style={[styles.container, { marginTop: 20 }]}>
+            <Text>Home</Text>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, // Ocupa a tela toda
+        justifyContent: 'center', // Centraliza ao centro da tela na vertical
+        alignItems: 'center'  // Centraliza ao centro da tela na horizontal    
+    }  
+})
+```

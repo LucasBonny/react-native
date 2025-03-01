@@ -200,3 +200,35 @@ const styles = StyleSheet.create({
     }  
 })
 ```
+
+### Imutabilidade com useState
+
+```js
+import React, { useState } from 'react'; // Presente no react web
+
+export function Home() {
+    
+    const [newSkill, setNewSkill] = useState(''); // Monitorar o input
+    const [mySkills, setMySkills] = useState([]); // Lista de Skills
+
+    function handleAddNewSkill() {
+        setMySkills(oldSkill => (...oldSkill, newSkill)) //adiciona o valor do input dentro do array
+    }
+
+    return (
+
+        <>
+            <TextInput
+            onChangeText={setNewSkill} // define o valor dentro do newSkill
+            placeholder="Insira aqui" />
+
+            <TouchableOpacity onPress={handleNewAddMySkill} // chama a função.
+            > 
+                <Text>Add</Text>
+            </TouchableOpacity>
+        </>
+
+    )
+}
+
+```

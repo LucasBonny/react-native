@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, 
     Text, 
     StyleSheet, 
@@ -8,6 +8,14 @@ import { View,
 } from "react-native";
 
 export function Home() {
+
+    const [newSkill, setNewSkill] = useState('');
+    const [mySkills, setMySkills] = useState([]);
+
+    function handlerAddNewSkill() {
+        setMySkills(oldSkills => [...oldSkills, newSkill]);
+    }
+
   return(
       <View style={styles.container}>
             <Text style={styles.title}>Welcome, Lucas</Text>
@@ -16,18 +24,29 @@ export function Home() {
                 style={styles.input}
                 placeholder="New skill"
                 placeholderTextColor="#555"
+                onChangeText={setNewSkill}
             />
 
             <TouchableOpacity 
             style={styles.button}
-            activeOpacity={0.7}>
+            activeOpacity={0.7}
+            onPress={handlerAddNewSkill}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
 
-            <Text style={[styles.title, {marginTop: 20 }]}>
+            <Text style={[styles.title, {marginVertical: 50 }]}>
                 My Skills
             </Text>
 
+            {
+                mySkills.map(skill => (
+                    <TouchableOpacity key={skill} style={styles.buttonSkill}>
+                        <Text style={styles.textSkill}>
+                            {skill}
+                        </Text>
+                    </TouchableOpacity>
+                ))
+            }
       </View>
   )
 }
@@ -35,7 +54,7 @@ export function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#222',
+        backgroundColor: '#111',
         paddingVertical: 70,
         paddingHorizontal: 30
     },
@@ -54,10 +73,26 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#A370F7',
-        padding: 15,
+        padding: 10,
         borderRadius: 7,
         alignItems: 'center',
         marginTop: 20
+    },
+    buttonText: {
+        color: '#FFF',
+        fontSize: 17,
+        fontWeight: 'bold'
+    },    
+    buttonSkill: {
+        backgroundColor: '#1F1E25',
+        padding: 15,
+        marginVertical: 10,
+        alignItems: 'center',
+        borderRadius: 50
+    },
+    textSkill: {
+        color: '#FFF',
+        fontSize: 18,
+        fontWeight: 'bold'
     }
-    
 })

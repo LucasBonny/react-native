@@ -14,6 +14,7 @@ export function Home() {
 
     function handlerAddNewSkill() {
         setMySkills(oldSkills => [...oldSkills, newSkill]);
+        console.log(newSkill);
     }
 
   return(
